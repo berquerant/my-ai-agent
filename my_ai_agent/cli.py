@@ -62,6 +62,8 @@ async def main() -> int:
                         "type": "string",
                      },
                 },
+                "required": ["timezone"],
+                "additionalProperties": False,
             }
             help = {
                 "name": name,

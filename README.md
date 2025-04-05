@@ -63,6 +63,8 @@ schema = {
             "type": "string",
          },
     },
+    "required": ["timezone"],
+    "additionalProperties": False,
 }
 help = {
     "name": name,
