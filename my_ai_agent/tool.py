@@ -1,5 +1,4 @@
 import json
-import shlex
 import subprocess
 import textwrap
 from dataclasses import dataclass, asdict
@@ -9,6 +8,7 @@ from agents import FunctionTool, RunContextWrapper, Tool
 from pydantic import BaseModel
 
 from .log import log
+from .shx import expand_quote
 
 
 @dataclass
@@ -104,7 +104,7 @@ class Command:
 
     @property
     def __executable(self) -> str:
-        return shlex.quote(self.executable)
+        return expand_quote(self.executable)
 
     def help(self) -> Help:
         r = self.run("help")
