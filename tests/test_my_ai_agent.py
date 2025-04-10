@@ -26,7 +26,7 @@ def test_e2e():
         [
             "pip",
             "install",
-            "dist/my_ai_agent-0.1.0.tar.gz",
+            "dist/my_ai_agent-0.2.0.tar.gz",
         ],
         pwd,
     )
