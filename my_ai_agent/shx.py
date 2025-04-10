@@ -1,6 +1,6 @@
-import shlex
 from os.path import expandvars
 
 
-def expand_quote(v: str) -> str:
-    return shlex.quote(expandvars(v))
+def expand(v: str) -> str:
+    """Expand envvars."""
+    return expandvars(v)

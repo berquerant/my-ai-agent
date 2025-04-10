@@ -2,7 +2,8 @@
 
 ``` shell
 ❯ python -m my_ai_agent.cli -h
-usage: cli.py [-h] [-m MODEL] [-u BASE_URL] [--debug] [--quiet] [-i INSTRUCTIONS] [-r ROLE_SEPARATOR] [-s MESSAGE_SEPARATOR] [--tool_timeout TOOL_TIMEOUT] [-t [TOOL ...]]
+usage: cli.py [-h] [-m MODEL] [-u BASE_URL] [--debug] [--quiet] [-i INSTRUCTIONS] [-r ROLE_SEPARATOR] [-s MESSAGE_SEPARATOR]
+              [--tool_timeout TOOL_TIMEOUT] [-t [TOOL ...]] [-p MCP]
 
 My AI agent.
 
@@ -23,6 +24,7 @@ options:
                         tool timeout seconds, default: 30
   -t, --tool [TOOL ...]
                         external tool executables
+  -p, --mcp MCP         MCP server settings like {"name"{"command":"COMMAND","args":["ARG"]}}, @FILENAME is available
 
 # Examples
 ## minimal

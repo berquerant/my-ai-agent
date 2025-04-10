@@ -8,7 +8,7 @@ from agents import FunctionTool, RunContextWrapper, Tool
 from pydantic import BaseModel
 
 from .log import log
-from .shx import expand_quote
+from .shx import expand
 
 
 @dataclass
@@ -104,7 +104,7 @@ class Command:
 
     @property
     def __executable(self) -> str:
-        return expand_quote(self.executable)
+        return expand(self.executable)
 
     def help(self) -> Help:
         r = self.run("help")
