@@ -5,14 +5,12 @@ import logging
 import os
 import sys
 import textwrap
-import typing
 
 from agents import Tool
 
 from .bot import Bot, BotRequest
 from .io import read_file_or
 from .log import log, init as init_log
-from .mcp import Settings as MCPSettings
 from .provider import Setting
 from .serde import Converter
 from .tool import Command
@@ -140,13 +138,6 @@ async def main() -> int:
         default=[],
         help="external tool executables",
     )
-    parser.add_argument(
-        "-p",
-        "--mcp",
-        type=str,
-        default="",
-        help='MCP server settings like {"name"{"command":"COMMAND","args":["ARG"]}}, @FILENAME is available',
-    )
     args = parser.parse_args()
 
     log_level = logging.INFO
@@ -161,23 +152,20 @@ async def main() -> int:
     tools: list[Tool] = [
         Command(executable=x, timeout_seconds=args.tool_timeout, env=dict(os.environ)).as_tool() for x in args.tool
     ]
-    mcp_settings = MCPSettings.loads(typing.cast(str, read_file_or(args.mcp)))
 
     provider_setting = Setting(model_name=args.model, base_url=args.base_url, api_key=os.getenv("OPENAI_API_KEY") or "")
     instructions = read_file_or(args.instructions)
     converter = Converter(role_separator=args.role_separator, message_separator=args.message_separator)
 
-    async with mcp_settings.mcp_servers() as mcp_servers:
-        bot = Bot(
-            model=args.model,
-            model_provider=provider_setting.provider,
-            instructions=instructions,
-            tools=tools,
-            mcp_servers=mcp_servers,
-        )
-        input_items = converter.from_str(sys.stdin.read())
-        request = BotRequest(messages=input_items)
-        response = await bot.reply(request)
+    bot = Bot(
+        model=args.model,
+        model_provider=provider_setting.provider,
+        instructions=instructions,
+        tools=tools,
+    )
+    input_items = converter.from_str(sys.stdin.read())
+    request = BotRequest(messages=input_items)
+    response = await bot.reply(request)
 
     input_items.append(response.reply)
     result_text = converter.into_str(input_items)
