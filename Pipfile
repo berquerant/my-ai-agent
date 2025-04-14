@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 openai-agents = "0.0.9"
-pydantic = "2.11.2"
+pydantic = "2.11.3"
 
 [dev-packages]
 setuptools = "*"
