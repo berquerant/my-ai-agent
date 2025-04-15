@@ -17,7 +17,6 @@ classifiers = [
 keywords = ["my_ai_agent"]
 dependencies = [
   "openai-agents==0.0.9",
-  "pydantic==2.11.2",
 ]
 
 [project.urls]
