@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Self, cast, Any, override
 
 from agents import (
@@ -87,12 +87,9 @@ class Bot:
     model: str
     model_provider: ModelProvider
     instructions: str | None = None
-    tools: list[Tool] = field(default_factory=list)
 
     async def reply(self, req: BotRequest) -> BotResponse:
-        for t in self.tools:
-            log().debug("bot: enabled tool=%s", t.name)
-        agent = Agent(name="assistant", instructions=self.instructions, tools=self.tools)
+        agent = Agent(name="assistant", instructions=self.instructions)
         input_items = [x.input_item for x in req.messages]
         result = await Runner.run(
             starting_agent=agent,
