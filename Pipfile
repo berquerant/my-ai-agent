@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-openai-agents = "0.0.11"
+openai-agents = "0.0.13"
 
 [dev-packages]
 setuptools = "*"
